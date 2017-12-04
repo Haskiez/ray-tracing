@@ -45,20 +45,36 @@ function ConcaveMirror(f, x, y, a){
 	}
 
 
-	this.drawLines = function() {
+	this.drawLine1 = function() {
+    // line straight to mirror through focal point------------------------------------------------------------------------
+    var angle = Math.atan2(((this.posy - a.height) - (this.posy)), (this.posx) - (this.posx - this.focalLength));
+    var r = (1 / Math.sin(angle)) * (this.posx - this.focalLength);
+    var x = r * Math.cos(angle);
+    var y = r * Math.sin(angle);
 		c.moveTo(a.posx, a.posy-a.height);
-		c.lineTo(this.posx+this.offset/2, this.posy-a.height);
-		c.lineTo(this.posx-this.focalLength, this.posy);
+		c.lineTo(this.posx , this.posy - a.height);
+		// c.lineTo(this.posx - this.focalLength, this.posy);
+		c.translate(this.posx , this.posy - a.height);
+    c.lineTo(x, y);
 
-		c.moveTo(a.posx, a.posy-a.height);
+    // line to center of mirror and back------------------------------------------------------------------------------------
+
+    //
+		// c.moveTo(a.posx, a.posy-a.height);
+		// c.lineTo(this.posx-this.focalLength, this.posy);
+		// c.lineTo(this.posx+10, this.posy+this.Radius-23);
+		// c.lineTo(0, this.posy+a.height+15);
+
+		c.stroke();
+	}
+
+
+	this.drawLine2 = function() {
+    // line to center of mirror and back------------------------------------------------------------------------------------
+		c.translate(-this.posx , -(this.posy - a.height));
+		c.moveTo(a.posx, a.posy - a.height);
 		c.lineTo(this.posx+this.offset/2, this.posy);
 		c.lineTo(0, this.posy+a.height+15);
-
-		c.moveTo(a.posx, a.posy-a.height);
-		c.lineTo(this.posx-this.focalLength, this.posy);
-		c.lineTo(this.posx+10, this.posy+this.Radius-23);
-		c.lineTo(0, this.posy+a.height+15);
-
 		c.stroke();
 	}
 }
