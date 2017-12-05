@@ -13,7 +13,7 @@ c.stroke();
 
 
 //main--------------------------------------------------------------------
-var a = new Arrow(75, canvas.width / 2 - 300, canvas.height / 2);
+var a = new Arrow(75, canvas.width / 2 - 350, canvas.height / 2);
 c.beginPath();
 a.drawArrow();
 
@@ -22,8 +22,6 @@ c.beginPath();
 concaveM.drawMirror();
 concaveM.drawFocalPoint();
 concaveM.drawLine1();
-concaveM.drawLine2();
-
 
 var convexM = new ConvexMirror(100, canvas.width / 2, canvas.height / 2, a);
 c.beginPath();
