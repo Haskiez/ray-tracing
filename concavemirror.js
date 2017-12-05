@@ -65,7 +65,7 @@ function ConcaveMirror(f, x, y, a){
 		//No idea why this has to be negative
 		c.lineTo(x, -y);
 
-		c.strokeStyle = "blue";
+		c.strokeStyle = "green";
 		c.stroke();
 
 		// Line through focal point then reflected straight back-------------------------------------------------------------------
@@ -82,7 +82,7 @@ function ConcaveMirror(f, x, y, a){
 		c.translate(-a.posx, -(a.posy - a.height));
 
 
-		c.strokeStyle = "green";
+		c.strokeStyle = "blue";
 		c.stroke();
 	}
 

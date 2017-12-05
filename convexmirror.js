@@ -41,11 +41,13 @@ this.drawFocalPoint = function() {
 
 this.drawLines = function() {
 		//horizontal line reflected from focal point--------------------------------------------------------------------
+		c.beginPath();
 		c.strokeStyle = "red";
 		c.moveTo(a.posx, a.posy-a.height);
-		c.setLineDash([]);
 		c.lineTo(this.posx, a.posy-a.height);
 		c.stroke();
+
+		c.setLineDash([5]);
 		c.lineTo(this.posx + this.focalLength, this.posy);
 		c.stroke();
 		c.setLineDash([]);
@@ -70,30 +72,33 @@ this.drawLines = function() {
 		c.moveTo(a.posx, a.posy - a.height);
 		c.translate(a.posx, a.posy - a.height);
 		c.lineTo(x, y);
+		c.strokeStyle = "green";
+		c.stroke();
 		c.translate(-a.posx, -(a.posy - a.height));
 
 		//reflected line
+		//c.beginPath();
 		c.translate(this.posx, this.posy);
 		angle = -angle;
 		var r = (1/Math.cos(angle)) * (this.posx);
 		var x = r * Math.cos(angle);
 		var y = r * Math.sin(angle);
 		c.lineTo(-x, -y);
+		c.stroke();
 		c.translate(-this.posx, -this.posy);
 
 		//virtual line
+		c.beginPath();
 		c.moveTo(this.posx, this.posy);
 		c.translate(this.posx, this.posy);
 		var r = 1000;
 		angle = angle + Math.PI;
 		var x = r * Math.cos(angle);
 		var y = r * Math.sin(angle);
+		c.setLineDash([5]);
 		c.lineTo(x, y);
-
-
-
-		c.strokeStyle = "green";
 		c.stroke();
+		c.setLineDash([]);
 
 
 
