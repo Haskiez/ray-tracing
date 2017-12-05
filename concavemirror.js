@@ -30,7 +30,7 @@ function ConcaveMirror(f, x, y, a){
 		c.strokeStyle = "black";
 		c.strokeFill = "black";
 		c.arc(this.posx-this.focalLength, this.posy, 2.5, 0, Math.PI*2);
-		c.arc(this.posx+this.focalLength, this.posy, 2.5, 0, Math.PI*2);
+		//c.arc(this.posx+this.focalLength, this.posy, 2.5, 0, Math.PI*2);
 		c.fill();
 
 
