@@ -9,7 +9,7 @@ function ConvexMirror(f, x, y, a){
 	this.Radius = this.arrow.height*1.5;
 	if (this.Radius < 30) this.Radius = 30;
 	this.radius = 20;
-	//this.radius = this.Radius / 2;
+
 
 	this.drawMirror = function(){
 		c.translate(0, this.Radius);
@@ -20,9 +20,6 @@ function ConvexMirror(f, x, y, a){
 		c.lineTo(this.posx, this.posy-this.Radius*2);
 		c.moveTo(this.posx, this.posy);
 		c.ellipse(this.posx, this.posy-this.Radius, this.radius, this.Radius, 0, Math.PI/2, 3*Math.PI/2, false);
-		//c.translate(0, this.Radius*2);
-		//c.ellipse(this.posx, this.posy-3*this.Radius, this.radius, this.Radius, 0*Math.PI/180, Math.PI/2, 3*Math.PI/2, true);
-
 		c.strokeStyle = "black";
 		c.fillStyle = "black";
 		c.fill();
@@ -49,7 +46,6 @@ this.drawLines = function() {
 		c.setLineDash([]);
 		c.lineTo(this.posx, a.posy-a.height);
 		c.stroke();
-		//c.setLineDash([5]); //probably don't want to do this
 		c.lineTo(this.posx + this.focalLength, this.posy);
 		c.stroke();
 		c.setLineDash([]);

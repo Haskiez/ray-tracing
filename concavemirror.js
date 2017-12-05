@@ -30,14 +30,14 @@ function ConcaveMirror(f, x, y, a){
 		c.strokeStyle = "black";
 		c.strokeFill = "black";
 		c.arc(this.posx-this.focalLength, this.posy, 2.5, 0, Math.PI*2);
-		//c.arc(this.posx+this.focalLength, this.posy, 2.5, 0, Math.PI*2);
+		//c.arc(this.posx+this.focalLength, this.posy, 2.5, 0, Math.PI*2); //second focal point, not needed
 		c.fill();
 
 
 	}
 
 
-	this.drawLine1 = function() {
+	this.drawLines = function() {
     // line straight to mirror through focal point------------------------------------------------------------------------
 		c.beginPath();
 	  var angle = Math.atan2(((a.posy - a.height) - (this.posy)), (this.posx) - (this.posx - this.focalLength));
@@ -46,7 +46,6 @@ function ConcaveMirror(f, x, y, a){
     var y = r * Math.sin(angle);
 		c.moveTo(a.posx, a.posy-a.height);
 		c.lineTo(this.posx , this.posy - a.height);
-		// c.lineTo(this.posx - this.focalLength, this.posy);
 		c.translate(this.posx , this.posy - a.height);
     c.lineTo(x, y);
 
@@ -87,9 +86,4 @@ function ConcaveMirror(f, x, y, a){
 		c.stroke();
 	}
 
-
-	//this.drawLine2 = function() {
-    // line to center of mirror and back------------------------------------------------------------------------------------
-		//if we use separate functions, it doesn't draw the lines¯\_(ツ)_/¯
-	//}
 }

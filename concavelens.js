@@ -7,7 +7,7 @@ function ConcaveLens(f, x, y, a){
 	this.offset = 40;
 	this.Radius = this.arrow.height*1.5;
 	this.radius = 15;
-	this.midpoint = this.posx + this.offset / 2;
+	this.midpoint = this.posx + (this.offset / 2);
 
 	this.drawLens = function(){
 		c.translate(0, this.Radius);
@@ -74,15 +74,6 @@ function ConcaveLens(f, x, y, a){
 		c.lineTo(x, y);
 		c.strokeStyle = "green";
 		c.stroke();
-
-
-
-
-
-
-
-
-
 
 	}
 }
