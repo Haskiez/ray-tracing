@@ -13,7 +13,7 @@ c.stroke();
 
 
 //main--------------------------------------------------------------------
-var a = new Arrow(75, canvas.width / 2 - 400, canvas.height / 2);
+var a = new Arrow(60, canvas.width / 2 - 300, canvas.height / 2);
 c.beginPath();
 a.drawArrow();
 // var a2 = new Arrow(-75, canvas.width / 2 - 300, canvas.height / 2);
