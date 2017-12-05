@@ -28,9 +28,9 @@ function ConcaveLens(f, x, y, a){
 		c.translate(0, -this.Radius);
 		c.strokeStyle = "black";
 		c.strokeFill = "black";
-		c.moveTo(this.posx, this.posy);
-		c.arc(this.posx-this.focalLength, this.posy, 2.5, 0, Math.PI*2);
-		c.arc(this.posx+this.focalLength+this.offset, this.posy, 2.5, 0, Math.PI*2);
+		c.moveTo(this.midpoint, this.posy);
+		c.arc(this.midpoint-this.focalLength, this.posy, 2.5, 0, Math.PI*2);
+		c.arc(this.midpoint+this.focalLength, this.posy, 2.5, 0, Math.PI*2);
 		c.fill();
 
 
@@ -38,9 +38,37 @@ function ConcaveLens(f, x, y, a){
 
 
 	this.drawLines = function() {
-		
+		c.beginPath();
+		//line straight across then away from focal point--------------------------------------------
+		c.moveTo(a.posx, a.posy-a.height);
+		c.lineTo(this.midpoint, this.posy-a.height);
+		c.stroke();
+		c.translate(this.midpoint, this.posy-a.height);
+		var angle = Math.atan2((a.posy - a.height) - this.posy, this.midpoint - (this.midpoint - this.focalLength));
+		var r = 1000;
+		var x = r * Math.cos(angle);
+		var y = r * Math.sin(angle);
+		c.lineTo(x, y);
+		c.stroke();
+		c.translate(-this.midpoint, -(this.posy - a.height));
+		angle = angle + Math.PI;
+		x = r * Math.cos(angle);
+		y = r * Math.sin(angle);
+		c.moveTo(this.midpoint, this.posy - a.height);
+		c.translate(this.midpoint, this.posy - a.height);
+		c.lineTo(x, y);
+		c.translate(-this.midpoint, -(this.posy - a.height));
+
+		//line stright through center
 
 
+
+
+
+
+
+
+		c.stroke();
 
 
 

@@ -7,6 +7,7 @@ function ConvexMirror(f, x, y, a){
 	this.arrow = a;
 	this.offset = 5;
 	this.Radius = this.arrow.height*1.5;
+	if (this.Radius < 30) this.Radius = 30;
 	this.radius = 20;
 	//this.radius = this.Radius / 2;
 
@@ -42,7 +43,7 @@ this.drawFocalPoint = function() {
 	}
 
 this.drawLines = function() {
-		//horizontal line projected from focal point--------------------------------------------------------------------
+		//horizontal line reflected from focal point--------------------------------------------------------------------
 		c.strokeStyle = "red";
 		c.moveTo(a.posx, a.posy-a.height);
 		c.setLineDash([]);
@@ -64,13 +65,50 @@ this.drawLines = function() {
 		c.stroke();
 		c.translate(-this.posx, -(this.posy-a.height));
 
-		//line to cof
+		//line to center and reflected across x-axis------------------------------------------------------------------------
 		c.beginPath();
+		var angle = Math.atan2((a.posy - a.height) - this.posy, a.posx - (this.posx));
+		var r = (1/Math.cos(angle)) * (this.posx - a.posx);
+		var x = r * Math.cos(angle);
+		var y = r * Math.sin(angle);
+		c.moveTo(a.posx, a.posy - a.height);
+		c.translate(a.posx, a.posy - a.height);
+		c.lineTo(x, y);
+		c.translate(-a.posx, -(a.posy - a.height));
 
-		c.moveTo(a.posx, a.posy-a.height);
-		c.lineTo(this.posx+this.cof, this.posy);
+		//reflected line
+		c.translate(this.posx, this.posy);
+		angle = -angle;
+		var r = (1/Math.cos(angle)) * (this.posx);
+		var x = r * Math.cos(angle);
+		var y = r * Math.sin(angle);
+		c.lineTo(-x, -y);
+		c.translate(-this.posx, -this.posy);
+
+		//virtual line
+		c.moveTo(this.posx, this.posy);
+		c.translate(this.posx, this.posy);
+		var r = 1000;
+		angle = angle + Math.PI;
+		var x = r * Math.cos(angle);
+		var y = r * Math.sin(angle);
+		c.lineTo(x, y);
+
+
+
 		c.strokeStyle = "green";
 		c.stroke();
+
+
+
+
+		// //line to cof (maybe not correct)
+		// c.beginPath();
+    //
+		// c.moveTo(a.posx, a.posy-a.height);
+		// c.lineTo(this.posx+this.cof, this.posy);
+		// c.strokeStyle = "green";
+		// c.stroke();
 
 
 

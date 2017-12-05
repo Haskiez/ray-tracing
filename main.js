@@ -13,18 +13,20 @@ c.stroke();
 
 
 //main--------------------------------------------------------------------
-var a = new Arrow(100, canvas.width / 2 - 350, canvas.height / 2);
+var a = new Arrow(75, canvas.width / 2 - 400, canvas.height / 2);
 c.beginPath();
 a.drawArrow();
+// var a2 = new Arrow(-75, canvas.width / 2 - 300, canvas.height / 2);
+// a2.drawArrow();
 
 var concaveM = new ConcaveMirror(100, canvas.width / 2, canvas.height / 2, a);
 c.beginPath();
-//concaveM.drawMirror();
-//concaveM.drawFocalPoint();
-//concaveM.drawLine1();
+// concaveM.drawMirror();
+// concaveM.drawFocalPoint();
+// concaveM.drawLine1();
 
 var convexM = new ConvexMirror(100, canvas.width / 2, canvas.height / 2, a);
-// c.beginPath();
+c.beginPath();
 // convexM.drawMirror();
 // convexM.drawFocalPoint();
 // c.beginPath();
@@ -34,6 +36,7 @@ var concavel = new ConcaveLens(70, canvas.width / 2, canvas.height / 2, a);
 c.beginPath();
 concavel.drawLens();
 concavel.drawFocalPoint();
+concavel.drawLines();
 
 var convexl = new ConvexLens(30, canvas.width / 2, canvas.height / 2, a);
 c.beginPath();
