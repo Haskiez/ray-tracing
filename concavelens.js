@@ -7,6 +7,7 @@ function ConcaveLens(f, x, y, a){
 	this.offset = 40;
 	this.Radius = this.arrow.height*1.5;
 	this.radius = 15;
+	this.midpoint = this.posx + this.offset / 2;
 
 	this.drawLens = function(){
 		c.translate(0, this.Radius);
@@ -31,6 +32,16 @@ function ConcaveLens(f, x, y, a){
 		c.arc(this.posx-this.focalLength, this.posy, 2.5, 0, Math.PI*2);
 		c.arc(this.posx+this.focalLength+this.offset, this.posy, 2.5, 0, Math.PI*2);
 		c.fill();
+
+
+	}
+
+
+	this.drawLines = function() {
+		
+
+
+
 
 
 	}

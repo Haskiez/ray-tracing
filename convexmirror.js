@@ -1,12 +1,14 @@
 //convex mirror----------------------------------------------------------
 function ConvexMirror(f, x, y, a){
 	this.focalLength = f;
+	this.cof = 2*f; //center of curvature
 	this.posx = x;
 	this.posy = y;
 	this.arrow = a;
 	this.offset = 5;
 	this.Radius = this.arrow.height*1.5;
 	this.radius = 20;
+	//this.radius = this.Radius / 2;
 
 	this.drawMirror = function(){
 		c.translate(0, this.Radius);
@@ -34,11 +36,45 @@ this.drawFocalPoint = function() {
 		c.translate(0, -this.Radius);
 		c.strokeStyle = "black";
 		c.strokeFill = "black";
-		c.arc(this.posx-this.focalLength, this.posy, 2.5, 0, Math.PI*2);
 		c.arc(this.posx+this.focalLength, this.posy, 2.5, 0, Math.PI*2);
+		c.arc(this.posx+this.cof, this.posy, 2.5, 0, Math.PI*2);
 		c.fill();
-
-
 	}
+
+this.drawLines = function() {
+		//horizontal line projected from focal point--------------------------------------------------------------------
+		c.strokeStyle = "red";
+		c.moveTo(a.posx, a.posy-a.height);
+		c.setLineDash([]);
+		c.lineTo(this.posx, a.posy-a.height);
+		c.stroke();
+		//c.setLineDash([5]); //probably don't want to do this
+		c.lineTo(this.posx + this.focalLength, this.posy);
+		c.stroke();
+		c.setLineDash([]);
+		var angle = Math.atan2((a.posy - a.height) - this.posy, this.posx - (this.posx + this.focalLength));
+		var r = 1000; //doesn't matter, just  needs to go off screen
+		var x = r * Math.cos(angle);
+		var y = r * Math.sin(angle);
+		c.beginPath();
+		c.moveTo(this.posx, this.posy - a.height);
+		c.translate(this.posx, this.posy-a.height);
+		c.lineTo(x, y);
+
+		c.stroke();
+		c.translate(-this.posx, -(this.posy-a.height));
+
+		//line to cof
+		c.beginPath();
+
+		c.moveTo(a.posx, a.posy-a.height);
+		c.lineTo(this.posx+this.cof, this.posy);
+		c.strokeStyle = "green";
+		c.stroke();
+
+
+
+}
+
 
 }
