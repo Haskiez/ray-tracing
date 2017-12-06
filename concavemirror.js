@@ -5,7 +5,7 @@ function ConcaveMirror(f, x, y, a){
 	this.posy = y;
 	this.arrow = a;
 	this.offset = 40;
-	this.Radius = this.arrow.height*1.5;
+	this.Radius = this.arrow.height*2.5;
 	this.radius = 15;
 
 	this.drawMirror = function(){

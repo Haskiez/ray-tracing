@@ -6,7 +6,7 @@ function ConvexMirror(f, x, y, a){
 	this.posy = y;
 	this.arrow = a;
 	this.offset = 5;
-	this.Radius = this.arrow.height*1.5;
+	this.Radius = this.arrow.height*2.5;
 	if (this.Radius < 30) this.Radius = 30;
 	this.radius = 20;
 
@@ -65,6 +65,7 @@ this.drawLines = function() {
 
 		//line to center and reflected across x-axis------------------------------------------------------------------------
 		c.beginPath();
+		c.setLineDash([]);
 		var angle = Math.atan2((a.posy - a.height) - this.posy, a.posx - (this.posx));
 		var r = (1/Math.cos(angle)) * (this.posx - a.posx);
 		var x = r * Math.cos(angle);
@@ -73,11 +74,14 @@ this.drawLines = function() {
 		c.translate(a.posx, a.posy - a.height);
 		c.lineTo(x, y);
 		c.strokeStyle = "green";
+
 		c.stroke();
 		c.translate(-a.posx, -(a.posy - a.height));
 
 		//reflected line
-		//c.beginPath();
+
+		c.beginPath();
+		c.moveTo(this.posx, this.posy);
 		c.translate(this.posx, this.posy);
 		angle = -angle;
 		var r = (1/Math.cos(angle)) * (this.posx);
@@ -91,7 +95,9 @@ this.drawLines = function() {
 		c.beginPath();
 		c.moveTo(this.posx, this.posy);
 		c.translate(this.posx, this.posy);
+
 		var r = 1000;
+
 		angle = angle + Math.PI;
 		var x = r * Math.cos(angle);
 		var y = r * Math.sin(angle);
@@ -99,18 +105,41 @@ this.drawLines = function() {
 		c.lineTo(x, y);
 		c.stroke();
 		c.setLineDash([]);
-
+		c.translate(-this.posx, -this.posy);
 
 
 
 		// //line to cof (maybe not correct)
-		// c.beginPath();
-    //
-		// c.moveTo(a.posx, a.posy-a.height);
-		// c.lineTo(this.posx+this.cof, this.posy);
-		// c.strokeStyle = "green";
-		// c.stroke();
+		c.beginPath();
+		c.moveTo(a.posx, a.posy - a.height);
+		c.translate(a.posx, a.posy - a.height);
+		var angle = Math.atan2((a.posy - a.height) - this.posy, a.posx - (this.posx + this.cof));
+		var r = (1/Math.cos(angle)) * (a.posx - this.posx);
+		var x = r * Math.cos(angle);
+		var y = r * Math.sin(angle);
+		c.lineTo(-x, -y);
+		c.strokeStyle = "blue";
 
+		c.stroke();
+		c.beginPath();
+		//c.translate(-a.posx, -(a.posy-a.height));
+		c.moveTo(this.posx - a.posx, -y );
+		c.lineTo(this.posx + this.cof - a.posx, this.posy - (a.posy - a.height));
+		c.setLineDash([5]);
+		c.strokeStyle = "blue";
+		c.stroke();
+
+
+
+		c.setLineDash([]);
+		//c.translate(-a.posx, -(a.posy - a.height));
+		c.beginPath();
+		r = 10000;
+		var x = r * Math.cos(angle);
+		var y = r * Math.sin(angle);
+		c.moveTo(0, 0);
+		c.lineTo(x, y);
+		c.stroke();
 
 
 }

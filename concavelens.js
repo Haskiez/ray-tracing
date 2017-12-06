@@ -4,8 +4,8 @@ function ConcaveLens(f, x, y, a){
 	this.posx = x;
 	this.posy = y;
 	this.arrow = a;
-	this.offset = 40;
-	this.Radius = this.arrow.height*1.5;
+	this.offset = 50;
+	this.Radius = this.arrow.height*2.5;
 	this.radius = 15;
 	this.midpoint = this.posx + (this.offset / 2);
 
@@ -51,6 +51,8 @@ function ConcaveLens(f, x, y, a){
 		var y = r * Math.sin(angle);
 		c.lineTo(x, y);
 		c.stroke();
+		c.beginPath();
+		c.setLineDash([5]);
 		c.translate(-this.midpoint, -(this.posy - a.height));
 		angle = angle + Math.PI;
 		x = r * Math.cos(angle);
@@ -60,7 +62,7 @@ function ConcaveLens(f, x, y, a){
 		c.lineTo(x, y);
 		c.translate(-this.midpoint, -(this.posy - a.height));
 		c.stroke();
-
+		c.setLineDash([]);
 
 		//line stright through center
 		c.beginPath();
@@ -74,6 +76,32 @@ function ConcaveLens(f, x, y, a){
 		c.lineTo(x, y);
 		c.strokeStyle = "green";
 		c.stroke();
+
+
+		//line to far focal point and straight through----------------------------------------------------------------------------
+		c.beginPath();
+		c.moveTo(0, 0);
+		var angle = Math.atan2((a.posy - a.height) - this.posy, a.posx - (this.midpoint + this.focalLength));
+		var r = (1/Math.cos(angle)) * (this.midpoint - a.posx);
+		var x = r * Math.cos(angle);
+		var y = r * Math.sin(angle);
+
+		c.lineTo(x, y);
+		c.lineTo(10000, y);
+		c.strokeStyle = "blue";
+		c.stroke();
+
+		c.beginPath();
+		c.setLineDash([5]);
+		c.moveTo(x, y);
+		c.lineTo(-10000, y);
+
+		c.strokeStyle = "blue";
+		c.stroke();
+
+
+
+
 
 	}
 }
