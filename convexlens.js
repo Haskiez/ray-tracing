@@ -5,9 +5,10 @@ function ConvexLens(f, x, y, a){
 	this.posy = y;
 	this.arrow = a;
 	this.offset = 10; //"width" of lens
-	this.Radius = this.arrow.height*2.5; //major radius
+	this.Radius = this.arrow.height*2; //major radius
 	this.radius = 20; //minor radius
 	this.midpoint = this.posx + (this.offset/2);
+
 
 	this.drawLens = function(){
 		c.translate(0, this.Radius);
@@ -18,10 +19,7 @@ function ConvexLens(f, x, y, a){
 		c.moveTo(this.posx, this.posy); //move to bottom
 		c.ellipse(this.posx, this.posy-this.Radius, this.radius, this.Radius, 0, Math.PI/2, 3*Math.PI/2, false); //left ellipse
 		c.strokeStyle = "black";
-
 		c.stroke();
-		c.restore();
-
 	}
 
 	this.drawFocalPoint = function() {
@@ -30,8 +28,8 @@ function ConvexLens(f, x, y, a){
 		c.translate(0, -this.Radius);
 		c.strokeStyle = "black";
 		c.strokeFill = "black";
-		c.arc(this.posx-this.focalLength, this.posy, 2.5, 0, Math.PI*2);
-		c.arc(this.posx+this.focalLength+this.offset, this.posy, 2.5, 0, Math.PI*2);
+		c.arc(this.midpoint-this.focalLength, this.posy, 2.5, 0, Math.PI*2);
+		c.arc(this.midpoint+this.focalLength, this.posy, 2.5, 0, Math.PI*2);
 		c.fill();
 	}
 
@@ -42,7 +40,7 @@ function ConvexLens(f, x, y, a){
 		c.moveTo(a.posx, a.posy - a.height);
 		c.lineTo(this.midpoint, this.posy - a.height);
 		c.stroke();
-		var angle = Math.atan2((this.posy - a.height) - this.posy, this.midpoint - (this.posx - this.focalLength));
+		var angle = Math.atan2((this.posy - a.height) - this.posy, this.midpoint - (this.midpoint - this.focalLength));
 		var r = 10000;
 		var x = r * Math.cos(angle);
 		var y = r * Math.sin(angle);
@@ -69,7 +67,7 @@ function ConvexLens(f, x, y, a){
 		//line through focal point then stright across---------------------------
 		c.beginPath();
 		c.moveTo(a.posx, a.posy - a.height);
-		var angle = Math.atan2((a.posy - a.height) - this.posy, a.posx - (this.posx - this.focalLength));
+		var angle = Math.atan2((a.posy - a.height) - this.posy, a.posx - (this.midpoint - this.focalLength));
 		var r = (1/Math.cos(angle)) * (this.midpoint - a.posx);
 		var x = r * Math.cos(angle);
 		var y = r * Math.sin(angle);
@@ -85,6 +83,25 @@ function ConvexLens(f, x, y, a){
 		c.strokeStyle = "black";
 		c.setLineDash([]);
 
+	}
+
+	this.drawImage = function() {
+		//calculate distance
+		var objectDistance = this.midpoint - a.posx;
+		var objectDistanceInverse = 1/objectDistance;
+		var focalLengthInverse = 1/this.focalLength;
+		var imageDistanceInverse = objectDistanceInverse - focalLengthInverse;
+		var imageDistance = -1/imageDistanceInverse;
+
+
+		//calculate height
+		var imageHeight;
+		var objectHeight = a.height;
+		imageHeight = -(imageDistance*objectHeight)/objectDistance;
+
+
+		var imageArrow = new Arrow(imageHeight, this.midpoint + imageDistance, canvas.height/2);
+		imageArrow.drawArrow();
 	}
 
 }
