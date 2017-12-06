@@ -1,6 +1,6 @@
 //concave lens----------------------------------------------------------
 function ConcaveLens(f, x, y, a){
-	this.focalLength = f;
+	this.focalLength = parseInt(f);
 	this.posx = x;
 	this.posy = y;
 	this.arrow = a;
@@ -98,9 +98,10 @@ function ConcaveLens(f, x, y, a){
 
 		c.strokeStyle = "blue";
 		c.stroke();
-
-
-
+		// reset for next params
+		c.translate(-a.posx, -(a.posy-a.height));
+		c.strokeStyle = "black";
+		c.setLineDash([]);
 
 
 	}

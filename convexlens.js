@@ -1,6 +1,6 @@
 //convex lens----------------------------------------------------------
 function ConvexLens(f, x, y, a){
-	this.focalLength = f;
+	this.focalLength = parseInt(f);
 	this.posx = x;
 	this.posy = y;
 	this.arrow = a;
@@ -81,6 +81,9 @@ function ConvexLens(f, x, y, a){
 		c.strokeStyle = "blue";
 		c.stroke();
 
+		// reset for next params
+		c.strokeStyle = "black";
+		c.setLineDash([]);
 
 	}
 

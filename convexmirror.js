@@ -1,7 +1,7 @@
 //convex mirror----------------------------------------------------------
 function ConvexMirror(f, x, y, a){
-	this.focalLength = f;
-	this.cof = 2*f; //center of curvature
+	this.focalLength = parseInt(f);
+	this.cof = 2 * this.focalLength; //center of curvature
 	this.posx = x;
 	this.posy = y;
 	this.arrow = a;
@@ -122,7 +122,6 @@ this.drawLines = function() {
 
 		c.stroke();
 		c.beginPath();
-		//c.translate(-a.posx, -(a.posy-a.height));
 		c.moveTo(this.posx - a.posx, -y );
 		c.lineTo(this.posx + this.cof - a.posx, this.posy - (a.posy - a.height));
 		c.setLineDash([5]);
@@ -140,6 +139,11 @@ this.drawLines = function() {
 		c.moveTo(0, 0);
 		c.lineTo(x, y);
 		c.stroke();
+
+		// reset for next params
+		c.translate(-a.posx, -(a.posy-a.height));
+		c.strokeStyle = "black";
+		c.setLineDash([]);
 
 
 }
