@@ -31,6 +31,7 @@ document.getElementById("btn").onclick = (function(e) {
     concaveM.drawMirror();
     concaveM.drawFocalPoint();
     concaveM.drawLines();
+    concaveM.drawImage();
   }//convex mirror--------------------------------------------------------------
   else if (params[1] == "mirror" && params[2] == "convex"){
     var convexM = new ConvexMirror(params[3], canvas.width / 2, canvas.height / 2, a);

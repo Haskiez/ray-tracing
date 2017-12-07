@@ -4,7 +4,7 @@ function ConcaveMirror(f, x, y, a){
 	this.posx = x;
 	this.posy = y;
 	this.arrow = a;
-	this.offset = 40;
+	this.offset = 60;
 	this.Radius = this.arrow.height*2.5;
 	this.radius = 15;
 
@@ -88,6 +88,28 @@ function ConcaveMirror(f, x, y, a){
 		// reset for next params
 		c.strokeStyle = "black";
 		c.setLineDash([]);
+	}
+
+
+
+	this.drawImage = function() {
+
+		//calculate distance
+		var objectDistance = a.posx - this.posx;
+		var objectDistanceInverse = 1/objectDistance;
+		var focalLengthInverse = 1/this.focalLength;
+		var imageDistanceInverse = objectDistanceInverse + focalLengthInverse;
+		var imageDistance = 1/imageDistanceInverse;
+
+
+		//calculate height
+		var imageHeight;
+		var objectHeight = a.height;
+		imageHeight = -(imageDistance*objectHeight)/objectDistance;
+
+
+		var imageArrow = new Arrow(-imageHeight, this.posx - imageDistance, canvas.height/2);
+		imageArrow.drawArrow();
 	}
 
 }
