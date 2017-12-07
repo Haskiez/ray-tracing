@@ -1,6 +1,6 @@
 var params = ["150", "mirror", "convex", "200"];
 
-console.log(params);
+
 var canvas = document.querySelector('canvas');
 
 canvas.width = window.innerWidth;

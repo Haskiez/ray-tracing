@@ -86,6 +86,7 @@ function ConvexLens(f, x, y, a){
 	}
 
 	this.drawImage = function() {
+		
 		//calculate distance
 		var objectDistance = this.midpoint - a.posx;
 		var objectDistanceInverse = 1/objectDistance;
