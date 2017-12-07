@@ -45,7 +45,9 @@ this.drawLines = function() {
 		c.lineTo(this.posx, a.posy-a.height);
 		c.stroke();
 		//dashed line to focal point
+		c.beginPath();
 		c.setLineDash([5]);
+		c.moveTo(this.posx, a.posy - a.height);
 		c.lineTo(this.posx + this.focalLength, this.posy);
 		c.stroke();
 		c.setLineDash([]);
