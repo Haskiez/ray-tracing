@@ -67,7 +67,8 @@ function ConcaveMirror(f, x, y, a){
 		c.moveTo(this.posx, this.posy);
 		c.translate(this.posx, this.posy);
 		var angle = Math.atan2((a.posy - a.height) - this.posy, a.posx - this.posx);
-		var r = (1/Math.sin(angle) * (a.posx - this.posx));
+		var r = 10000;
+		//var r = (1/Math.sin(angle) * (a.posx - this.posx));
 		var x = r * Math.cos(angle);
 		var y = r * Math.sin(angle);
 		//No idea why this has to be negative
