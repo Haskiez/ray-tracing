@@ -40,23 +40,35 @@ function ConcaveMirror(f, x, y, a){
 	this.drawLines = function() {
     // line straight to mirror through focal point------------------------------------------------------------------------
 		c.beginPath();
+		c.strokeStyle = "red";
 	  var angle = Math.atan2(((a.posy - a.height) - (this.posy)), (this.posx) - (this.posx - this.focalLength));
     var r = (1 / Math.sin(angle)) * (this.posx - this.focalLength);
     var x = r * Math.cos(angle);
     var y = r * Math.sin(angle);
 		c.moveTo(a.posx, a.posy-a.height);
 		c.lineTo(this.posx , this.posy - a.height);
+		c.stroke()
+
+		c.beginPath();
+		c.moveTo(this.posx, this.posy - a.height);
 		c.translate(this.posx , this.posy - a.height);
+
     c.lineTo(x, y);
-
 		c.strokeStyle = "red";
+		c.setLineDash([5]);
 		c.stroke();
-
+		c.setLineDash([]);
     // line to center of mirror and back------------------------------------------------------------------------------------
 		c.beginPath();
+		c.strokeStyle = "green";
 		c.translate(-this.posx , -(this.posy - a.height));
 		c.moveTo(a.posx, a.posy - a.height);
 		c.lineTo(this.posx, this.posy);
+		c.stroke();
+
+
+		c.beginPath();
+		c.moveTo(this.posx, this.posy);
 		c.translate(this.posx, this.posy);
 		var angle = Math.atan2((a.posy - a.height) - this.posy, a.posx - this.posx);
 		var r = (1/Math.sin(angle) * (a.posx - this.posx));
@@ -64,12 +76,14 @@ function ConcaveMirror(f, x, y, a){
 		var y = r * Math.sin(angle);
 		//No idea why this has to be negative
 		c.lineTo(x, -y);
+		c.setLineDash([5]);
 
-		c.strokeStyle = "green";
+
 		c.stroke();
-
+		c.setLineDash([]);
 		// Line through focal point then reflected straight back-------------------------------------------------------------------
 		c.beginPath();
+		c.strokeStyle = "blue";
 		c.translate(-this.posx, -this.posy);
 		c.moveTo(a.posx, a.posy - a.height);
 		c.translate(a.posx, a.posy - a.height);
@@ -78,12 +92,19 @@ function ConcaveMirror(f, x, y, a){
 		var x = r * Math.cos(angle);
 		var y = r * Math.sin(angle);
 		c.lineTo(x, y);
+		c.stroke();
+
+
+		c.beginPath();
+		c.moveTo(x, y);
+		c.setLineDash([5]);
 		c.lineTo(-a.posx, y);
 		c.translate(-a.posx, -(a.posy - a.height));
 
 
-		c.strokeStyle = "blue";
+
 		c.stroke();
+		c.setLineDash([]);
 
 		// reset for next params
 		c.strokeStyle = "black";
