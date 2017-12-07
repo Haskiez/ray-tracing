@@ -19,7 +19,6 @@ function ConcaveLens(f, x, y, a){
 		c.ellipse(this.posx, this.posy-this.Radius, this.radius, this.Radius, 0, Math.PI/2, 3*Math.PI/2, true);//left ellipse
 		c.strokeStyle = "black";
 		c.stroke();
-		c.restore();
 	}
 
 	this.drawFocalPoint = function() {
@@ -32,18 +31,17 @@ function ConcaveLens(f, x, y, a){
 		c.arc(this.midpoint-this.focalLength, this.posy, 2.5, 0, Math.PI*2);
 		c.arc(this.midpoint+this.focalLength, this.posy, 2.5, 0, Math.PI*2);
 		c.fill();
-
-
 	}
-
 
 	this.drawLines = function() {
 		c.beginPath();
 		//line straight across then away from focal point--------------------------------------------
+		//straight across
 		c.strokeStyle = "red";
 		c.moveTo(a.posx, a.posy-a.height);
 		c.lineTo(this.midpoint, this.posy-a.height);
 		c.stroke();
+		//line away from focal point
 		c.translate(this.midpoint, this.posy-a.height);
 		var angle = Math.atan2((a.posy - a.height) - this.posy, this.midpoint - (this.midpoint - this.focalLength));
 		var r = 1000;
@@ -51,6 +49,7 @@ function ConcaveLens(f, x, y, a){
 		var y = r * Math.sin(angle);
 		c.lineTo(x, y);
 		c.stroke();
+		//dashed line reflected through focal point
 		c.beginPath();
 		c.setLineDash([5]);
 		c.translate(-this.midpoint, -(this.posy - a.height));
@@ -64,7 +63,8 @@ function ConcaveLens(f, x, y, a){
 		c.stroke();
 		c.setLineDash([]);
 
-		//line stright through center------------------------------------------------------
+		//line straight through center------------------------------------------------------
+		//line all the way through center
 		c.beginPath();
 		var angle = Math.atan2((a.posy - a.height) - this.posy, a.posx - (this.midpoint));
 		angle = angle + Math.PI;
@@ -76,6 +76,7 @@ function ConcaveLens(f, x, y, a){
 		c.lineTo(x, y);
 		c.strokeStyle = "green";
 		c.stroke();
+		//line back through center to top left
 		c.beginPath();
 		c.translate(-a.posx, -(a.posy-a.height));
 		c.moveTo(this.midpoint, this.posy);
@@ -86,9 +87,8 @@ function ConcaveLens(f, x, y, a){
 		c.translate(-this.midpoint, -this.posy);
 		c.setLineDash([]);
 
-
-
 		//line to far focal point and straight through-------------------------------------
+		//line to opposite focal point
 		c.beginPath();
 		c.translate(a.posx, a.posy-a.height);
 		c.moveTo(0, 0);
@@ -97,11 +97,10 @@ function ConcaveLens(f, x, y, a){
 		var x = r * Math.cos(angle);
 		var y = r * Math.sin(angle);
 		c.lineTo(x, y);
+		//horizontal line at same height
 		c.lineTo(10000, y);
 		c.strokeStyle = "blue";
 		c.stroke();
-
-
 		//virtual line reflected off
 		c.beginPath();
 		c.setLineDash([5]);
@@ -110,7 +109,6 @@ function ConcaveLens(f, x, y, a){
 		c.strokeStyle = "blue";
 		c.stroke();
 
-
 		// reset for next params
 		c.translate(-a.posx, -(a.posy-a.height));
 		c.strokeStyle = "black";
@@ -118,7 +116,6 @@ function ConcaveLens(f, x, y, a){
 	}
 
 	this.drawImage = function() {
-
 		//calculate distance
 		var objectDistance = this.midpoint - a.posx;
 		var objectDistanceInverse = 1/objectDistance;
@@ -126,19 +123,12 @@ function ConcaveLens(f, x, y, a){
 		var imageDistanceInverse = objectDistanceInverse - focalLengthInverse;
 		var imageDistance = 1/imageDistanceInverse;
 
-
 		//calculate height
 		var imageHeight;
 		var objectHeight = a.height;
 		imageHeight = -(imageDistance*objectHeight)/objectDistance;
 
-
 		var imageArrow = new Arrow(-imageHeight, this.midpoint - imageDistance, canvas.height/2);
 		imageArrow.drawArrow();
 	}
-
-
-
-
-
 }

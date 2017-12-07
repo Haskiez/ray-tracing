@@ -6,10 +6,9 @@ function ConvexMirror(f, x, y, a){
 	this.posy = y;
 	this.arrow = a;
 	this.offset = 5;
-	this.Radius = this.arrow.height*2.5;
+	this.Radius = this.arrow.height*1.5;
 	if (this.Radius < 30) this.Radius = 30;
 	this.radius = 20;
-
 
 	this.drawMirror = function(){
 		c.translate(0, this.Radius);
@@ -24,7 +23,6 @@ function ConvexMirror(f, x, y, a){
 		c.fill();
 		c.stroke();
 		c.restore();
-
 	}
 
 this.drawFocalPoint = function() {
@@ -40,29 +38,31 @@ this.drawFocalPoint = function() {
 
 this.drawLines = function() {
 		//horizontal line reflected from focal point--------------------------------------------------------------------
+		//line straight across
 		c.beginPath();
 		c.strokeStyle = "red";
 		c.moveTo(a.posx, a.posy-a.height);
 		c.lineTo(this.posx, a.posy-a.height);
 		c.stroke();
-
+		//dashed line to focal point
 		c.setLineDash([5]);
 		c.lineTo(this.posx + this.focalLength, this.posy);
 		c.stroke();
 		c.setLineDash([]);
+		//line drawn away from focal point
+		c.beginPath();
 		var angle = Math.atan2((a.posy - a.height) - this.posy, this.posx - (this.posx + this.focalLength));
-		var r = 1000; //doesn't matter, just  needs to go off screen
+		var r = 10000; //doesn't matter, just  needs to go off screen
 		var x = r * Math.cos(angle);
 		var y = r * Math.sin(angle);
-		c.beginPath();
 		c.moveTo(this.posx, this.posy - a.height);
 		c.translate(this.posx, this.posy-a.height);
 		c.lineTo(x, y);
-
 		c.stroke();
 		c.translate(-this.posx, -(this.posy-a.height));
 
 		//line to center and reflected across x-axis------------------------------------------------------------------------
+		//line to center of mirror
 		c.beginPath();
 		c.setLineDash([]);
 		var angle = Math.atan2((a.posy - a.height) - this.posy, a.posx - (this.posx));
@@ -73,12 +73,9 @@ this.drawLines = function() {
 		c.translate(a.posx, a.posy - a.height);
 		c.lineTo(x, y);
 		c.strokeStyle = "green";
-
 		c.stroke();
 		c.translate(-a.posx, -(a.posy - a.height));
-
 		//reflected line
-
 		c.beginPath();
 		c.moveTo(this.posx, this.posy);
 		c.translate(this.posx, this.posy);
@@ -89,14 +86,11 @@ this.drawLines = function() {
 		c.lineTo(-x, -y);
 		c.stroke();
 		c.translate(-this.posx, -this.posy);
-
 		//virtual line
 		c.beginPath();
 		c.moveTo(this.posx, this.posy);
 		c.translate(this.posx, this.posy);
-
 		var r = 1000;
-
 		angle = angle + Math.PI;
 		var x = r * Math.cos(angle);
 		var y = r * Math.sin(angle);
@@ -106,7 +100,8 @@ this.drawLines = function() {
 		c.setLineDash([]);
 		c.translate(-this.posx, -this.posy);
 
-		//line to cof (maybe not correct)
+		//line to cof-------------------------------------------------------------------------------
+		//line to cof from top of arrow
 		c.beginPath();
 		c.moveTo(a.posx, a.posy - a.height);
 		c.translate(a.posx, a.posy - a.height);
@@ -117,8 +112,7 @@ this.drawLines = function() {
 		c.lineTo(-x, -y);
 		c.strokeStyle = "blue";
 		c.stroke();
-
-
+		//virtual line to cof
 		c.beginPath();
 		c.moveTo(this.posx - a.posx, -y );
 		c.lineTo(this.posx + this.cof - a.posx, this.posy - (a.posy - a.height));
@@ -126,8 +120,7 @@ this.drawLines = function() {
 		c.strokeStyle = "blue";
 		c.stroke();
 		c.setLineDash([]);
-
-
+		//line to top left off the screen
 		c.beginPath();
 		r = 10000;
 		var x = r * Math.cos(angle);
@@ -140,14 +133,9 @@ this.drawLines = function() {
 		c.translate(-a.posx, -(a.posy-a.height));
 		c.strokeStyle = "black";
 		c.setLineDash([]);
-
-
 }
 
-
-
 this.drawImage = function() {
-
 	//calculate distance
 	var objectDistance = a.posx - this.posx;
 	var objectDistanceInverse = 1/objectDistance;
@@ -155,15 +143,12 @@ this.drawImage = function() {
 	var imageDistanceInverse = objectDistanceInverse + focalLengthInverse;
 	var imageDistance = 1/imageDistanceInverse;
 
-
 	//calculate height
 	var imageHeight;
 	var objectHeight = a.height;
 	imageHeight = -(imageDistance*objectHeight)/objectDistance;
 
-
 	var imageArrow = new Arrow(-imageHeight, this.posx - imageDistance, canvas.height/2);
 	imageArrow.drawArrow();
 }
-
 }

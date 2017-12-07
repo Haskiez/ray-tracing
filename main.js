@@ -1,11 +1,7 @@
 var params = ["150", "mirror", "convex", "200"];
-
-
 var canvas = document.querySelector('canvas');
-
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-
 var c = canvas.getContext('2d');
 
 document.getElementById("btn").onclick = (function(e) {
@@ -23,7 +19,6 @@ document.getElementById("btn").onclick = (function(e) {
   var a = new Arrow(params[0], canvas.width / 2 - 300, canvas.height / 2);
   c.beginPath();
   a.drawArrow();
-
 //concave mirror----------------------------------------------------------------
   if (params[1] == "mirror" && params[2] == "concave"){
     var concaveM = new ConcaveMirror(params[3], canvas.width / 2, canvas.height / 2, a);
