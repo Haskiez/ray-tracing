@@ -1,4 +1,4 @@
-var params = ["150", "mirror", "convex", "200"];
+var params = ["150", "mirror", "convex", "200", "300"];
 var canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -16,7 +16,7 @@ document.getElementById("btn").onclick = (function(e) {
   c.lineTo(0, canvas.height / 2);
   c.stroke();
   //main------------------------------------------------------------------------
-  var a = new Arrow(params[0], canvas.width / 2 - 300, canvas.height / 2);
+  var a = new Arrow(params[0], canvas.width / 2 - params[4], canvas.height / 2);
   c.beginPath();
   a.drawArrow();
 //concave mirror----------------------------------------------------------------

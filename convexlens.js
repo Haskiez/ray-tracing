@@ -5,7 +5,7 @@ function ConvexLens(f, x, y, a){
 	this.posy = y;
 	this.arrow = a;
 	this.offset = 10; //"width" of lens
-	this.Radius = this.arrow.height*2; //major radius
+	this.Radius = this.arrow.height*1.5; //major radius
 	this.radius = 20; //minor radius
 	this.midpoint = this.posx + (this.offset/2);
 
