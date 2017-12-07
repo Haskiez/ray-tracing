@@ -16,7 +16,6 @@ function ConvexMirror(f, x, y, a){
 		c.moveTo(this.posx, this.posy);
 		c.lineTo(this.posx+this.offset/2, this.posy);
 		c.lineTo(this.posx+this.offset/2, this.posy-this.Radius*2);
-		//c.ellipse(this.posx+this.offset, this.posy-this.Radius, this.radius, this.Radius, 0, Math.PI/2, 3*Math.PI/2, true);
 		c.lineTo(this.posx, this.posy-this.Radius*2);
 		c.moveTo(this.posx, this.posy);
 		c.ellipse(this.posx, this.posy-this.Radius, this.radius, this.Radius, 0, Math.PI/2, 3*Math.PI/2, false);
@@ -107,9 +106,7 @@ this.drawLines = function() {
 		c.setLineDash([]);
 		c.translate(-this.posx, -this.posy);
 
-
-
-		// //line to cof (maybe not correct)
+		//line to cof (maybe not correct)
 		c.beginPath();
 		c.moveTo(a.posx, a.posy - a.height);
 		c.translate(a.posx, a.posy - a.height);
@@ -119,19 +116,18 @@ this.drawLines = function() {
 		var y = r * Math.sin(angle);
 		c.lineTo(-x, -y);
 		c.strokeStyle = "blue";
-
 		c.stroke();
+
+
 		c.beginPath();
 		c.moveTo(this.posx - a.posx, -y );
 		c.lineTo(this.posx + this.cof - a.posx, this.posy - (a.posy - a.height));
 		c.setLineDash([5]);
 		c.strokeStyle = "blue";
 		c.stroke();
-
-
-
 		c.setLineDash([]);
-		//c.translate(-a.posx, -(a.posy - a.height));
+
+
 		c.beginPath();
 		r = 10000;
 		var x = r * Math.cos(angle);
@@ -148,5 +144,26 @@ this.drawLines = function() {
 
 }
 
+
+
+this.drawImage = function() {
+
+	//calculate distance
+	var objectDistance = a.posx - this.posx;
+	var objectDistanceInverse = 1/objectDistance;
+	var focalLengthInverse = 1/-this.focalLength;
+	var imageDistanceInverse = objectDistanceInverse + focalLengthInverse;
+	var imageDistance = 1/imageDistanceInverse;
+
+
+	//calculate height
+	var imageHeight;
+	var objectHeight = a.height;
+	imageHeight = -(imageDistance*objectHeight)/objectDistance;
+
+
+	var imageArrow = new Arrow(-imageHeight, this.posx - imageDistance, canvas.height/2);
+	imageArrow.drawArrow();
+}
 
 }

@@ -39,6 +39,7 @@ document.getElementById("btn").onclick = (function(e) {
     convexM.drawMirror();
     convexM.drawFocalPoint();
     convexM.drawLines();
+    convexM.drawImage();
   }//concave lens---------------------------------------------------------------
   else if(params[1] == "lens" && params[2] == "concave") {
     var concavel = new ConcaveLens(params[3], canvas.width / 2, canvas.height / 2, a);
