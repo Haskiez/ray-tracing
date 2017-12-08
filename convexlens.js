@@ -36,6 +36,7 @@ function ConvexLens(f, x, y, a){
 		//line straight across then through focal point--------------------------
 		//straight across
 		c.beginPath();
+		c.strokeStyle = "red";
 		c.moveTo(a.posx, a.posy - a.height);
 		c.lineTo(this.midpoint, this.posy - a.height);
 		c.stroke();
@@ -44,10 +45,12 @@ function ConvexLens(f, x, y, a){
 		var r = 10000;
 		var x = r * Math.cos(angle);
 		var y = r * Math.sin(angle);
+		c.beginPath();
+		c.moveTo(this.midpoint, this.posy - a.height);
 		c.translate(this.midpoint, this.posy - a.height);
 		c.lineTo(x, -y); //negative for no reason
 		c.translate(-this.midpoint, -(this.posy - a.height));
-		c.strokeStyle = "red";
+
 		c.stroke();
 
 		//line straight through center-------------------------------------------
